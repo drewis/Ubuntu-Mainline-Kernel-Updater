@@ -67,7 +67,7 @@ print "echo -e '\\t",
 print "Rejecting" if not args.rc else "Accepting",
 print "Release Canidates'"
 print "echo -e '\\t Accepting Latest",
-print "%s" % args.v if args.v else "\\b",
+print "%s" % args.v if args.v else "\b",
 print "Kernel'"
 print "echo -e '\\t Accepting kernels compiled for %s'" % args.r
 print "echo -e '\\t Accepting kernels with version higher than %s'" % k
