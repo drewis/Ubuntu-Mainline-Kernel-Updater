@@ -9,7 +9,7 @@ from HTMLParser import HTMLParser
 from distutils.version import LooseVersion
 
 parser = argparse.ArgumentParser(description="Ubuntu Mainline Kernel installer generator")
-parser.add_argument('-norc', action='store_true', help="ignore Release Canidate versions")
+parser.add_argument('--rc', action='store_true', help="ignore Release Canidate versions")
 parser.add_argument('-v', help="specify version series eg: 3.8")
 parser.add_argument('-r', help="overrides the release version eg: raring")
 parser.add_argument('-k', action='store_true', help="generate a installer regardless of the current running kernel")
@@ -64,7 +64,7 @@ class LinkParser(HTMLParser):
 print "#!/bin/bash"
 print "\necho 'Config Notes:'"
 print "echo -e '\\t",
-print "Rejecting" if args.norc else "Accepting",
+print "Rejecting" if not args.rc else "Accepting",
 print "Release Canidates'"
 print "echo -e '\\t Accepting Latest",
 print "%s" % args.v if args.v else "\\b",
@@ -84,7 +84,7 @@ k = k.split('-')
 for l in links:
     name = l.lstrip('v').rstrip('/')
     if args.r in name:
-        if args.norc and '-rc' in name:
+        if not args.rc and '-rc' in name:
             continue
         if args.v and args.v not in name:
             continue
